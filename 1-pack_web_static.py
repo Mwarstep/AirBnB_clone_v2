@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from fabric.api import local
-from datetime import datetime
+from datetime import date
+from time import strftime
 
 
 def do_pack():
@@ -9,8 +10,13 @@ def do_pack():
     folder of my repo (this one)
     """
 
-    date_t = datetime.today()
-    tod = date_t.strftime('%Y%m%d%H%M%S')
+    f_name = strftime('%Y%m%d%H%M%S')
+    try:
+        local("mkdir -p versions")
 
-    local("mkdir -p versions")
-    local("tar -czvf versions/web_static{}.tgz web_static".format(tod))
+        local("tar -czvf versions/web_static_{}.tgz web_static/"
+              .format(f_name))
+
+        return "versions/web_static_{}.tgz".format(f_name)
+    except Exception as e:
+        return None
