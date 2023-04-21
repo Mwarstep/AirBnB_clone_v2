@@ -7,7 +7,7 @@ Routes:
     /c/<text>: will display “C ” followed <text>
 """
 
-from flask import Flask, escape
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -27,7 +27,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c(text):
     """Will display 'C' followed by <text>"""
-    text = escape(text).replace("_", " ")
+    text = text.replace("_", " ")
     return f"C {text}"
 
 
