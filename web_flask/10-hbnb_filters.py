@@ -24,7 +24,7 @@ def hbnb_filters():
 
 @app.teardown_appcontext
 def teardown(exception):
-    """Will remover the SQLAlchemy session."""
+    """Will remove the SQLAlchemy session."""
     storage.close()
 
 
