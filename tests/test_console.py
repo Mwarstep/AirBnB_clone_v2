@@ -92,15 +92,16 @@ class TestHBNBCommand(unittest.TestCase):
     @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBstorage")
     def test_create_kwargs(self):
         with patch("sys.stdout", new=StringIO()) as test:
-            self.HBNB.onecmd('create User first_name="John" email="john@example.com password="1234"')
+            self.HBNB.onecmd('create User first_name="Tim"
+                             email="tim@example.com password="1234"')
             new_user = test.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as test:
             self.HBNB.onecmd("all User")
             user_output = test.getvalue()
             self.assertIn(new_user, user_output)
-            self.assertIn("'first_name': 'John'", user_output)
-            self.assertIn("'email': 'john@example.com'", user_output)
-            self.assertNotIn("'last_name': 'Snow'", user_output)
+            self.assertIn("'first_name': 'Tim'", user_output)
+            self.assertIn("'email': 'tim@example.com'", user_output)
+            self.assertNotIn("'last_name': 'Chalamet'", user_output)
             self.assertIn("'password': '1234'", user_output)
 
 
