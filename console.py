@@ -37,6 +37,7 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
+        
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
         """
@@ -112,36 +113,35 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    """def do_create(self, args):
-        # Create an object of any class
-        arg = args.split(" ")
+    def do_create(self, args):
+        """ Create an object of any class"""
+        params = args.split()
+
         if not args:
             print("** class name missing **")
             return
-        elif arg[0] not in HBNBCommand.classes:
+        elif params[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[arg[0]]()
-        # The option to add a new value to the dictionary
-        for i in range(1, len(arg)):
-            if len(arg) > 1:
-                value = arg[i].split("=")
-                # remove the '"' from the beggining and the end of the string
-                if value[1][0] == "\"":
-                    value[1] = value[1][:0] + "" + value[1][1:]
-                if value[1][len(value[1]) - 1] == "\"":
-                    value[1] = value[1][:len(value[1]) - 1] + ""
-                # replace '_' with space
-                value[1] = value[1].replace("_", " ")
-                # check if the string can be converted to number if yes convert
-                if value[1].isnumeric():
-                    if int(value[1]):
-                        value[1] = int(value[1])
-                    elif float(value[1]):
-                        value[1] = float(value[1])
-                setattr(new_instance, value[0], value[1])
-        storage.save()
-        print(new_instance.id)"""
+        new_instance = HBNBCommand.classes[params[0]]()
+        kv_dict = {}
+        for i in params[1:]:
+            kv = i.split('=')
+            if '"' in kv[1]:
+                value = kv[1].replace('"', '').replace('_', ' ')
+                kv_dict[kv[0]] = value
+            else:
+                try:
+                    if '.' in kv[1]:
+                        kv_dict[kv[0]] = float(kv[1])
+                    else:
+                        kv_dict[kv[0]] = int(kv[1])
+                except ValueError:
+                    pass
+        new_instance.__dict__.update(kv_dict)
+        new_instance.save()
+        print(new_instance.id)
+
     def do_create(self, args):
         """ Create an object of any class"""
         if not args:
