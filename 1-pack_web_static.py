@@ -6,7 +6,7 @@ from time import strftime
 
 def do_pack():
     """
-    Will generate a .tgz archive form contents of web_static
+    This generates a .tgz archive form contents of web_static
     folder of my repo (this one)
     """
 
