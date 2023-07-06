@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-from fabric.api import put, run, local, env
 import os
+from fabric.api import put, run, local, env
+from fabric.context_managers import lcd, cd
 
 env.hosts = ['100.25.33.200', '54.89.100.110']
 
@@ -20,7 +21,7 @@ def do_clean(number=0):
     number = 1 if int(number) == 0 else int(number)
 
     arch_1 = sorted(os.listdir("versions"))
-    [arch_1.pop() for x in range(number)]
+    arch_1 = arch_1[:-number]
     with lcd("versions"):
         [local("rm ./{}".format(y)) for y in arch_1]
 
