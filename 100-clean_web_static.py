@@ -28,5 +28,5 @@ def do_clean(number=0):
     with cd("/data/web_static/releases"):
         arch_1 = run("ls -tr").split()
         arch_1 = [y for y in arch_1 if "web_static_" in y]
-        [arch_1.pop() for x in range(number)]
+        arch_1 = arch_1[:-number]
         [run("rm -rf ./{}".format(y)) for y in arch_1]
