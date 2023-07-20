@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Will start a Flask Web Application listening 0.0.0.0 port 5000
+"""Starts a Flask Web Application listening 0.0.0.0 port 5000
 Routes:
     /hbnb: Will display the HBNB Homepage
 """

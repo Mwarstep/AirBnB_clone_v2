@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Will start a Flask Web App listening on 0.0.0.0 port 5000
+"""Starts a Flask Web App listening on 0.0.0.0 port 5000
 Routes:
     /states: Displays a HTML Page listing all State objects in DBStorage
     /states/<id>: Displays HTML Page with state <id>
